@@ -6,7 +6,8 @@ Shared prompt and generation package for the web app backend.
 
 The web app calls stable functions here for AI-backed pipeline steps instead of putting model calls and prompt assembly directly in API routes.
 
-This package preserves the current command-line pipeline semantics while using the Vercel AI SDK with pluggable providers.
+This package keeps the command-line pipeline behavior. It uses the Vercel AI
+SDK with pluggable providers.
 
 ## Planned shape
 
@@ -29,10 +30,10 @@ anthropic/claude-sonnet-4-6
 
 The package exposes generation functions for raw image analysis, synthesized image notes, rule chunks, the final rule set, and the final skill.
 
-Synthesized image notes are fused from source-neutral analysis inputs. The
-synthesis prompt strips raw artifact frontmatter, omits model names from
-analysis headings, and redacts known source model ids from analysis text so the
-fusion model does not see which analysis came from which model.
+The synthesis prompt combines source-neutral analysis inputs. It strips raw
+artifact frontmatter, removes model names from analysis headings, and redacts
+known source model IDs from analysis text. The fusion model cannot see which
+model produced each analysis.
 
 Supported credential modes for local tooling and backend callers:
 

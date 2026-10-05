@@ -53,10 +53,10 @@ The final skill is written to:
 .taste/runs/<run-id>/04-skill/SKILL.md
 ```
 
-Convenience alternatives: instead of the two direct keys, you can set one
-gateway key: `OPENROUTER_API_KEY` or `AI_GATEWAY_API_KEY`. Vercel's AI Gateway
-uses `AI_GATEWAY_API_KEY` and routes plain AI SDK model strings through the
-Gateway by default.
+You can use one gateway key instead of the two direct keys. Set either
+`OPENROUTER_API_KEY` or `AI_GATEWAY_API_KEY`. Vercel's AI Gateway uses
+`AI_GATEWAY_API_KEY`. By default, it routes plain AI SDK model strings through
+the Gateway.
 
 Run against a different folder:
 
@@ -143,9 +143,9 @@ runs/{runId}/02-image-notes/raw/{imageId}/{model}.md
 
 ### 4. Fuse and Chunk
 
-When an image's raw analyses finish, the synthesis model fuses them into one
-canonical note. The inputs are anonymized first, so the model sees source-neutral
-analyses instead of provider names.
+When an image's raw analyses finish, the synthesis model combines them into one
+canonical note. The pipeline anonymizes the inputs first. The model sees
+source-neutral analyses instead of provider names.
 
 Then the synthesized notes are grouped into chunks. Each chunk becomes a small
 rule synthesis. Larger runs are reduced through merge layers before producing
@@ -204,6 +204,5 @@ npm run e2e:prod
 
 The production E2E script requires `BLOB_READ_WRITE_TOKEN`,
 `INTERNAL_API_SECRET`, and `TASTE_E2E_COOKIE` from a signed-in OpenRouter
-session. Put local test images in
-`reference-images/` or set `TASTE_REFERENCE_DIR`;
-reference images are intentionally gitignored.
+session. Put local test images in `reference-images/`, or set
+`TASTE_REFERENCE_DIR`. Git ignores the reference images by design.

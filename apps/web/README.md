@@ -24,9 +24,9 @@ The hosted web app only accepts OpenRouter OAuth sessions. Do not add public UI
 or API routes that collect individual OpenAI/Anthropic keys; direct provider
 credentials belong in local tooling built on `packages/ai`.
 
-`POST /api/runs/:runId/start` enqueues a durable workflow. `/api/jobs/drain`
-claims bounded batches of jobs with database leases, retries failed jobs, and is
-also invoked by Vercel Cron so killed functions can resume.
+`POST /api/runs/:runId/start` adds a durable workflow to the queue.
+`/api/jobs/drain` claims bounded job batches with database leases. It retries
+failed jobs. Vercel Cron also invokes it so interrupted functions can resume.
 
 Generated artifacts are written under Vercel Blob paths like:
 
@@ -41,11 +41,11 @@ runs/{runId}/03-rule-set/rule-set.md
 runs/{runId}/04-skill/SKILL.md
 ```
 
-During `02-image-notes/synthesized`, `SYNTHESIS_MODEL` fuses the raw analysis
-outputs into one canonical note. The fusion prompt is source-neutral: it strips
-raw artifact frontmatter, omits model names from analysis headings, and redacts
-known source model ids from analysis text before calling the fusion model.
-Stored artifact metadata still records source and synthesis model ids for
+During `02-image-notes/synthesized`, `SYNTHESIS_MODEL` combines raw analysis
+outputs into one canonical note. The fusion prompt is source-neutral. It strips
+raw artifact frontmatter, removes model names from analysis headings, and
+redacts known source model IDs from analysis text before calling the fusion
+model. Stored artifact metadata keeps the source and synthesis model IDs for
 debugging.
 
 ## API Contract
